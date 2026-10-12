@@ -2,7 +2,7 @@
 package com.banking.model;
 
 public class Customer {
-
+    private final BankAccount bankAccount;
     private final String customerId;
     private final String name;
     private final String phoneNumber;
@@ -12,7 +12,12 @@ public class Customer {
             String customerId,
             String name,
             String phoneNumber,
-            String email) {
+            String email,
+            BankAccount bankAccount) {
+        if (bankAccount == null) {
+            throw new IllegalArgumentException(
+                    "Bank account cannot be null");
+        }
 
         if (customerId == null || customerId.isBlank()) {
             throw new IllegalArgumentException(
@@ -38,6 +43,10 @@ public class Customer {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.bankAccount=bankAccount;
+    }
+    public BankAccount getBankAccount() {
+        return bankAccount;
     }
 
     public String getCustomerId() {
@@ -61,5 +70,9 @@ public class Customer {
         System.out.println("Name: " + name);
         System.out.println("Phone: " + phoneNumber);
         System.out.println("Email: " + email);
+        System.out.println("Account Number: " +
+                bankAccount.getAccountNumber());
+        System.out.println("Balance: " +
+                bankAccount.getBalance());
     }
 }
