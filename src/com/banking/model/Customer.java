@@ -2,7 +2,7 @@
 package com.banking.model;
 
 public class Customer {
-    private final BankAccount bankAccount;
+    private final BankAccount bankAccount;//customer object hold a reference to their account.
     private final String customerId;
     private final String name;
     private final String phoneNumber;
@@ -46,7 +46,7 @@ public class Customer {
         this.bankAccount=bankAccount;
     }
     public BankAccount getBankAccount() {
-        return bankAccount;
+        return bankAccount;// Returning a Bank Account Class
     }
 
     public String getCustomerId() {
