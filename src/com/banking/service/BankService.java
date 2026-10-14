@@ -6,6 +6,14 @@ import com.banking.model.Customer;
 import java.util.HashMap;
 import java.util.Map;
 
+//BankService will manage registered customers and their bank accounts.
+//We'll build it incrementally, starting with three responsibilities:
+//      Method	           Purpose
+//createCustomer()	     Create a customer and their bank account
+//findCustomerById()	 Find a registered customer
+//findAccountByNumber()  Find an account using its account number
+//We'll also prevent duplicate customer IDs and account numbers
+
 public class BankService {
 
     private final Map<String, Customer> customers = new HashMap<>();
@@ -61,4 +69,15 @@ public class BankService {
 
         return account;
     }
+
+    public void deposit(String accountNumber, BigDecimal amount) {
+        BankAccount account = findAccountByNumber(accountNumber);
+        account.deposit(amount);
+    }
+
+    public void withdraw(String accountNumber, BigDecimal amount) {
+        BankAccount account = findAccountByNumber(accountNumber);
+        account.withdraw(amount);
+    }
+
 }
