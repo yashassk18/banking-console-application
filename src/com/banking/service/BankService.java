@@ -6,6 +6,9 @@ import com.banking.model.Customer;
 import java.util.HashMap;
 import java.util.Map;
 
+import java.util.ArrayList;
+import java.util.List;
+
 //BankService will manage registered customers and their bank accounts.
 //We'll build it incrementally, starting with three responsibilities:
 //      Method	           Purpose
@@ -87,6 +90,9 @@ public class BankService {
         // This also gives us a central place to add authorization or other business rules later
         BankAccount account = findAccountByNumber(accountNumber);
         return account.getBalance();
+    }
+    public List<Customer> getAllCustomers() {
+        return new ArrayList<>(customers.values());
     }
 
 
