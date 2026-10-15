@@ -80,4 +80,15 @@ public class BankService {
         account.withdraw(amount);
     }
 
+    public BigDecimal checkBalance(String accountNumber) {
+        //Why add this method when BankAccount already has getBalance()?
+        //Because callers can request a balance through BankService without
+        // needing to retrieve and manage the account object themselves.
+        // This also gives us a central place to add authorization or other business rules later
+        BankAccount account = findAccountByNumber(accountNumber);
+        return account.getBalance();
+    }
+
+
+
 }
