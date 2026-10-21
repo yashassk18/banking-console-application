@@ -94,6 +94,9 @@ public class BankService {
     public List<Customer> getAllCustomers() {
         return new ArrayList<>(customers.values());
     }
+    public List<BankAccount> getAllAccounts() {
+        return new ArrayList<>(accounts.values());
+    }
 
 
 
