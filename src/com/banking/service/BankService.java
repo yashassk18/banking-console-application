@@ -97,6 +97,16 @@ public class BankService {
     public List<BankAccount> getAllAccounts() {
         return new ArrayList<>(accounts.values());
     }
+    public void updateCustomerDetails(
+            String customerId,
+            String name,
+            String phoneNumber,
+            String email) {
+
+        Customer customer = findCustomerById(customerId);//finds customer by id
+
+        customer.updateDetails(name, phoneNumber, email);
+    }
 
 
 

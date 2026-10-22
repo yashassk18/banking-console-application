@@ -4,9 +4,9 @@ package com.banking.model;
 public class Customer {
     private final BankAccount bankAccount;//customer object hold a reference to their account.
     private final String customerId;
-    private final String name;
-    private final String phoneNumber;
-    private final String email;
+    private  String name;
+    private  String phoneNumber;
+    private  String email;
 
     public Customer(
             String customerId,
@@ -74,5 +74,27 @@ public class Customer {
                 bankAccount.getAccountNumber());
         System.out.println("Balance: " +
                 bankAccount.getBalance());
+    }
+    public void updateDetails(
+            String name,
+            String phoneNumber,
+            String email) {
+
+        if (name == null || name.trim().isEmpty()) {
+            throw new IllegalArgumentException("Name cannot be empty");
+        }
+
+        if (phoneNumber == null || !phoneNumber.matches("\\d{10}")) {
+            throw new IllegalArgumentException(
+                    "Phone number must contain exactly 10 digits");
+        }
+
+        if (email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
+            throw new IllegalArgumentException("Invalid email address");
+        }
+
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
     }
 }
