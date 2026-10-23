@@ -96,5 +96,6 @@ public class Customer {
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.bankAccount.updateAccountHolderName(name);//to update account holder name automatically
     }
 }

@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 public class BankAccount {
 
     private final String accountNumber;
-    private final String accountHolderName;
+    private  String accountHolderName;
     private BigDecimal balance;//BigDecimal to represent and calculate decimal numbers with high precision,
     // especially when accuracy is important,
 
@@ -101,6 +101,14 @@ public class BankAccount {
         System.out.println("Account Number: " + accountNumber);
         System.out.println("Account Holder: " + accountHolderName);
         System.out.println("Balance: ₹" + balance.toPlainString());
+    }
+    public void updateAccountHolderName(String newName) {
+        if (newName == null || newName.trim().isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Account holder name cannot be empty");
+        }
+
+        this.accountHolderName = newName;
     }
 }
 
