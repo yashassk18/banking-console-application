@@ -29,14 +29,17 @@ public class Customer {
                     "Customer name cannot be empty");
         }
 
-        if (phoneNumber == null || phoneNumber.isBlank()) {
+        if (phoneNumber == null || !phoneNumber.matches("\\d{10}")) {//\\d{10} checks that the phone number contains exactly 10 digits.
             throw new IllegalArgumentException(
-                    "Phone number cannot be empty");
+                    "Phone number must contain exactly 10 digits");
         }
 
-        if (email == null || email.isBlank()) {
+        if (email == null ||
+                !email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
+            //@ requires an at-sign in the email.
+            //\\. matches a literal dot, such as the one in .com.
             throw new IllegalArgumentException(
-                    "Email cannot be empty");
+                    "Invalid email address");
         }
 
         this.customerId = customerId;
