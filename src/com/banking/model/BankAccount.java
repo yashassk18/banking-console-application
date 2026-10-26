@@ -14,10 +14,7 @@ public class BankAccount {
             String accountHolderName,
             BigDecimal initialBalance) {
 
-        if (accountNumber == null || accountNumber.isBlank()) {
-            throw new IllegalArgumentException(
-                    "Account number cannot be empty");
-        }
+        validateAccountNumber(accountNumber);
 
         if (accountHolderName == null
                 || accountHolderName.isBlank()) {
@@ -88,7 +85,7 @@ public class BankAccount {
             //3. comparison is 0, so 0 <= 0 is true.
             //Therefore, result is true
 
-       //     When the expression evaluates to true, Java enters the if block and throws the exception.
+            //     When the expression evaluates to true, Java enters the if block and throws the exception.
             //     When it evaluates to false, Java skips the block.
             throw new IllegalArgumentException(
                     allowZero
@@ -109,6 +106,13 @@ public class BankAccount {
         }
 
         this.accountHolderName = newName;
+    }
+    private void validateAccountNumber(String accountNumber) {
+        if (accountNumber == null ||
+                !accountNumber.matches("ACC\\d{4}")) {
+            throw new IllegalArgumentException(
+                    "Account number must follow the format ACC1234");
+        }
     }
 }
 
