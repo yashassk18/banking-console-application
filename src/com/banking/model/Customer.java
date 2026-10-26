@@ -24,10 +24,7 @@ public class Customer {
                     "Customer ID must follow the format CUST1001");  //- 4} — exactly four digits must follow.
         }
 
-        if (name == null || name.isBlank()) {
-            throw new IllegalArgumentException(
-                    "Customer name cannot be empty");
-        }
+        validateName(name);
 
         validatePhoneNumber(phoneNumber);
 
@@ -86,9 +83,7 @@ public class Customer {
             String phoneNumber,
             String email) {
 
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Name cannot be empty");
-        }
+        validateName(name);
 
         validatePhoneNumber(phoneNumber);
 
@@ -98,5 +93,11 @@ public class Customer {
         this.email = email;
         this.bankAccount.updateAccountHolderName(name);//to update account holder name automatically
 
+    }
+    private void validateName(String name) {
+        if (name == null || name.isBlank()) {
+            throw new IllegalArgumentException(
+                    "Customer name cannot be empty");
+        }
     }
 }
