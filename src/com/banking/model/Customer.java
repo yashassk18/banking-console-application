@@ -29,18 +29,9 @@ public class Customer {
                     "Customer name cannot be empty");
         }
 
-        if (phoneNumber == null || !phoneNumber.matches("\\d{10}")) {//\\d{10} checks that the phone number contains exactly 10 digits.
-            throw new IllegalArgumentException(
-                    "Phone number must contain exactly 10 digits");
-        }
+        validatePhoneNumber(phoneNumber);
 
-        if (email == null ||
-                !email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
-            //@ requires an at-sign in the email.
-            //\\. matches a literal dot, such as the one in .com.
-            throw new IllegalArgumentException(
-                    "Invalid email address");
-        }
+        validateEmail(email);
 
         this.customerId = customerId;
         this.name = name;
@@ -78,6 +69,18 @@ public class Customer {
         System.out.println("Balance: " +
                 bankAccount.getBalance());
     }
+    private void validatePhoneNumber(String phoneNumber) {
+        if (phoneNumber == null || !phoneNumber.matches("\\d{10}")) {
+            throw new IllegalArgumentException(
+                    "Phone number must contain exactly 10 digits");
+        }
+    }
+    private void validateEmail(String email) {
+        if (email == null ||
+                !email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
+            throw new IllegalArgumentException("Invalid email address");
+        }
+    }
     public void updateDetails(
             String name,
             String phoneNumber,
@@ -87,18 +90,13 @@ public class Customer {
             throw new IllegalArgumentException("Name cannot be empty");
         }
 
-        if (phoneNumber == null || !phoneNumber.matches("\\d{10}")) {
-            throw new IllegalArgumentException(
-                    "Phone number must contain exactly 10 digits");
-        }
+        validatePhoneNumber(phoneNumber);
 
-        if (email == null || !email.matches("^[\\w.-]+@[\\w.-]+\\.\\w+$")) {
-            throw new IllegalArgumentException("Invalid email address");
-        }
-
+        validateEmail(email);
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.bankAccount.updateAccountHolderName(name);//to update account holder name automatically
+
     }
 }
