@@ -19,9 +19,9 @@ public class Customer {
                     "Bank account cannot be null");
         }
 
-        if (customerId == null || customerId.isBlank()) {
-            throw new IllegalArgumentException(
-                    "Customer ID cannot be empty");
+        if (customerId == null || !customerId.matches("CUST\\d{4}")) {//CUST — the ID must start with these letters
+            throw new IllegalArgumentException(                           //\\d — in Java, this represents a digit in the regular expression
+                    "Customer ID must follow the format CUST1001");  //- 4} — exactly four digits must follow.
         }
 
         if (name == null || name.isBlank()) {
