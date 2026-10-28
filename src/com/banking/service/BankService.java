@@ -10,12 +10,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 //BankService will manage registered customers and their bank accounts.
-//We'll build it incrementally, starting with three responsibilities:
 //      Method	           Purpose
 //createCustomer()	     Create a customer and their bank account
 //findCustomerById()	 Find a registered customer
 //findAccountByNumber()  Find an account using its account number
-//We'll also prevent duplicate customer IDs and account numbers
+
 
 public class BankService {
 
