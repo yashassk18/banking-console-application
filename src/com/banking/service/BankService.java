@@ -2,6 +2,12 @@ package com.banking.service;
 import java.math.BigDecimal;
 import com.banking.model.BankAccount;
 import com.banking.model.Customer;
+import com.banking.dao.CustomerDAO;
+import com.banking.dao.BankAccountDAO;
+import com.banking.config.DatabaseConnection;
+
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +23,8 @@ import java.util.List;
 
 
 public class BankService {
+    private final CustomerDAO customerDAO = new CustomerDAO();
+    private final BankAccountDAO bankAccountDAO = new BankAccountDAO();
 
     private final Map<String, Customer> customers = new HashMap<>();
     private final Map<String, BankAccount> accounts = new HashMap<>();
@@ -46,21 +54,58 @@ public class BankService {
         Customer customer = new Customer(
                 customerId, name, phoneNumber, email, account);
 
-        customers.put(customerId, customer);
-        accounts.put(accountNumber, account);
+        try (Connection connection = DatabaseConnection.getConnection()) {
 
-        return customer;
+            connection.setAutoCommit(false);
+
+            customerDAO.saveCustomer(connection, customer);
+
+            bankAccountDAO.saveBankAccount(
+                    connection, account, customerId);
+
+            connection.commit();
+
+            customers.put(customerId, customer);
+            accounts.put(accountNumber, account);
+
+            return customer;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(
+                    "Failed to save customer to database", e);
+        }
     }
+
     public Customer findCustomerById(String customerId) {
+
         Customer customer = customers.get(customerId);
 
-        if (customer == null) {
-            throw new IllegalArgumentException(
-                    "Customer not found: " + customerId);
+        if (customer != null) {
+            return customer;
         }
 
-        return customer;
+        try (Connection connection = DatabaseConnection.getConnection()) {
+
+            customer = customerDAO.findCustomerById(connection, customerId);
+
+            if (customer == null) {
+                throw new IllegalArgumentException(
+                        "Customer not found: " + customerId);
+            }
+
+            BankAccount account = customer.getBankAccount();
+
+            customers.put(customerId, customer);
+            accounts.put(account.getAccountNumber(), account);
+
+            return customer;
+
+        } catch (SQLException e) {
+            throw new RuntimeException(
+                    "Failed to retrieve customer from database", e);
+        }
     }
+
     public BankAccount findAccountByNumber(String accountNumber) {
         BankAccount account = accounts.get(accountNumber);
 

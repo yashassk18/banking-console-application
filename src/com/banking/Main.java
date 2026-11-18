@@ -1,14 +1,29 @@
-
-
 package com.banking;
-import com.banking.service.BankService;
 import com.banking.model.Customer;
-
+import com.banking.service.BankService;
 import java.util.Scanner;
+import com.banking.config.DatabaseConnection;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
 
     public static void main(String[] args) {
+
+
+        try {
+            Connection connection = DatabaseConnection.getConnection();
+
+            System.out.println("MySQL connection successful!");
+
+            connection.close();
+
+        } catch (SQLException e) {
+            System.out.println("Database connection failed!");
+            e.printStackTrace();
+        }
+
+
 
         Scanner scanner = new Scanner(System.in);
         BankService bankService = new BankService();
